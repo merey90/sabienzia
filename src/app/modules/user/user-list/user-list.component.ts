@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingsService } from '../../../services/settings.service';
+import { UserService } from '../user.service';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-user-list',
@@ -6,8 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
+  private showAdminsOnly;
+  private users: User[] = [];
 
-  constructor() { }
+  constructor(
+    private settingsService: SettingsService,
+    private userService: UserService
+  ) {
+    this.showAdminsOnly = this.settingsService.getSettings().showAdminsOnly;
+    if (this.showAdminsOnly) {
+      this.users = this.userService.getUsers().filter((user: User) => user.role === 'Admin');
+    } else {
+      this.users = this.userService.getUsers();
+    }
+  }
 
   ngOnInit() {
   }
