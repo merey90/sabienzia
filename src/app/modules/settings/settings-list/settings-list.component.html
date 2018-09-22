@@ -1,3 +1,21 @@
+<h1>
+  Settings
+</h1>
 <p>
-  settings-list works!
+  <label>
+    <input type="checkbox" name="showAdminsOnly" (click)="onCbxClick($event)" [checked]="this.settings.showAdminsOnly"/>
+    Show admins users only
+  </label>
+</p>
+<p>
+  <label>
+    <input type="checkbox" name="showChart" (click)="onCbxClick($event)" [checked]="this.settings.showChart"/>
+    Show real-time chart
+  </label>
+</p>
+<p>
+  <label>
+    <input type="checkbox" name="showDataWidget" (click)="onCbxClick($event)" [checked]="this.settings.showDataWidget"/>
+    Show current calls widget
+  </label>
 </p>
