@@ -1,34 +1,57 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SettingsService } from '../../../services/settings.service';
 import { UserService } from '../user.service';
 import { User } from '../user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss']
 })
-export class UserListComponent implements OnInit {
-  private showAdminsOnly;
+export class UserListComponent implements OnInit, OnDestroy {
+  private showAdminsOnly = false;
   private users: User[] = [];
+  private usersSubs: Subscription;
+  private addUsersSubs: Subscription[] = [];
+  private settingsSubs: Subscription;
 
   constructor(
     private settingsService: SettingsService,
     private userService: UserService
-  ) {
-    this.showAdminsOnly = this.settingsService.getSettings().showAdminsOnly;
-    if (this.showAdminsOnly) {
-      this.users = this.userService.getUsers().filter((user: User) => user.role === 'Admin');
-    } else {
-      this.users = this.userService.getUsers();
-    }
-  }
+  ) { }
 
   handleAddUser(user: User): void {
-    this.userService.addUser(user);
+    this.addUsersSubs.push(
+      this.userService.addUser(user)
+        .subscribe(newUser => console.log(`user ${newUser.firstname} successfully added`))
+    );
+  }
+
+  getUsers(): void {
+    this.usersSubs = this.userService.getUsers().subscribe(users => {
+      if (this.showAdminsOnly) {
+        this.users = users.filter((user: User) => user.role === 'Admin')
+      } else {
+        this.users = users;
+      }
+    });
+  }
+
+  getSettings(): void {
+    this.settingsSubs = this.settingsService.getSettings().subscribe(settings => {
+      this.showAdminsOnly = settings.showAdminsOnly;
+      this.getUsers();
+    });
   }
 
   ngOnInit() {
+    this.getSettings();
   }
 
+  ngOnDestroy() {
+    this.settingsSubs.unsubscribe();
+    this.usersSubs.unsubscribe();
+    this.addUsersSubs.map((sub: Subscription) => sub.unsubscribe);
+  }
 }

@@ -47,6 +47,7 @@ export class UserCreateComponent implements OnInit {
     event.preventDefault();
     if (this.createUserForm.valid) {
       this.addUser.emit(this.createUserForm.value);
+      this.createUserForm.reset();
     }
   }
 }
