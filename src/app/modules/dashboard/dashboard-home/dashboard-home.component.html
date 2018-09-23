@@ -1,3 +1,15 @@
-<p>
-  dashboard-home works!
+<h1>
+  Dashboard
+</h1>
+<p *ngIf="!!teams && teams.length > 0">
+  <label>Team:
+    <select [(ngModel)]="selectedTeam" id="team" required>
+      <option *ngFor="let team of teams" [ngValue]="team">{{team.name}}</option>
+    </select>
+  </label>
 </p>
+<div class="row">
+  <app-team-chart *ngIf="showChart && selectedTeam && teamSeries[selectedTeam.id].length > 0" [teamName]="selectedTeam.name" [series]="teamSeries[selectedTeam.id]"></app-team-chart>
+  <app-widget *ngIf="showDataWidget && selectedTeam && teamSeries[selectedTeam.id].length > 0" [activeCalls]="teamSeries[selectedTeam.id][teamSeries[selectedTeam.id].length-1].value"></app-widget>
+  <span class="color-red" *ngIf="!showChart && !showDataWidget">Nothing to show, please check your settings.</span>
+</div>

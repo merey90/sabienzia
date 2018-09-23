@@ -1,0 +1,46 @@
+$fontSize: 90px;
+
+.widget{
+  float: left;
+  border: 2px solid black;
+  &-header{
+    text-align: center;
+    border-bottom: 2px solid black;
+    margin-bottom: 0;
+  }
+  &-content{
+    min-width: 270px;
+    padding: $fontSize;
+    text-align: center;
+    font-size: $fontSize;
+    line-height: $fontSize;
+    margin: 0;
+    font-weight: bold;
+    transition: background-color 1s ease-in-out;
+  }
+}
+
+[class *= "widget-color"]:not([class $= "widget-color0"]),
+{
+  background-color: lightgreen;
+}
+
+[class $= "widget-color0"] {
+  background-color: #333;
+}
+
+[class *= "widget-color3"]:not([class $= "widget-color3"]),
+[class *= "widget-color4"]:not([class $= "widget-color4"]),
+[class *= "widget-color5"]:not([class $= "widget-color5"]),
+[class *= "widget-color6"]:not([class $= "widget-color6"]),
+[class $= "widget-color70"],
+{
+  background-color: orange;
+}
+
+[class *= "widget-color7"]:not([class $= "widget-color7"]):not([class $= "widget-color70"]),
+[class *= "widget-color8"]:not([class $= "widget-color8"]),
+[class *= "widget-color9"]:not([class $= "widget-color9"]),
+{
+  background-color: red;
+}

@@ -1,5 +1,7 @@
 export class Settings {
-  showAdminsOnly: boolean;
-  showChart: boolean;
-  showDataWidget: boolean;
+  constructor(
+    public showAdminsOnly: boolean,
+    public showChart: boolean,
+    public showDataWidget: boolean,
+  ) { }
 }
