@@ -1,0 +1,42 @@
+<form [formGroup]="createUserForm" (ngSubmit)="handleSubmit($event)">
+  <div class="form-group">
+    <div class="left">
+      <label for="firstname">First name</label>
+      <label for="lastname">Last name</label>
+      <label for="email">Email</label>
+      <label for="phone">Phone</label>
+      <label for="role">Role</label>
+    </div>
+    <div class="right">
+      <input id="firstname" type="text"
+        [ngClass]="{'has-error' : !!createUserForm.controls['firstname'].errors && !!createUserForm.controls['firstname'].touched}"
+        [formControl]="firstname"
+        placeholder="First name" required="true" />
+      <input id="lastname" type="text"
+        [ngClass]="{'has-error' : !!createUserForm.controls['lastname'].errors && !!createUserForm.controls['lastname'].touched}"
+        [formControl]="lastname"
+        placeholder="Last name" required="true" />
+      <input id="email"
+        [ngClass]="{'has-error' : !!createUserForm.controls['email'].errors && !!createUserForm.controls['email'].errors.pattern && createUserForm.controls['email'].touched}"
+        type="email"
+        [formControl]="email"
+        placeholder="example@domain.com" required="true"/>
+      <input id="phone"
+        [ngClass]="{'has-error' : !!createUserForm.controls['phone'].errors && !!createUserForm.controls['phone'].errors.pattern && createUserForm.controls['phone'].touched}"
+        type="text"
+        [formControl]="phone"
+        placeholder="000 0000 000" required="true"/>
+      <input id="role" type="text"
+        [ngClass]="{'has-error' : !!createUserForm.controls['role'].errors && createUserForm.controls['role'].touched}"
+        [formControl]="role"
+        placeholder="Role" required="true"/>
+    </div>
+  </div>
+  <div *ngIf="!!createUserForm.controls['email'].errors && !!createUserForm.controls['email'].errors.pattern && createUserForm.controls['email'].touched">
+    Error: email is not valid
+  </div>
+  <div *ngIf="!!createUserForm.controls['phone'].errors && !!createUserForm.controls['phone'].errors.pattern && createUserForm.controls['phone'].touched">
+    Error: phone is not valid
+  </div>
+  <button type="submit"> Add new user </button>
+</form>

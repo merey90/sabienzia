@@ -24,6 +24,10 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  handleAddUser(user: User): void {
+    this.userService.addUser(user);
+  }
+
   ngOnInit() {
   }
 

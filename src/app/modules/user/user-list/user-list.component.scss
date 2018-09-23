@@ -1,6 +1,9 @@
 table{
   border: 2px solid black;
   border-collapse: collapse;
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 30px;
 
   thead{
     background-color: gray;
