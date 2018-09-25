@@ -12,11 +12,11 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dashboard-home.component.scss']
 })
 export class DashboardHomeComponent implements OnInit, OnDestroy {
-  private teams: Team[] = [];
-  private showChart = true;
-  private teamSeries: Object = {};
-  private showDataWidget = true;
-  private selectedTeam: Team;
+  teams: Team[] = [];
+  showChart = true;
+  teamSeries: Object = {};
+  showDataWidget = true;
+  selectedTeam: Team;
   private timeInterval: NodeJS.Timer;
   private teamsSubs: Subscription;
   private settingsSubs: Subscription;

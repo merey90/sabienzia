@@ -10,8 +10,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit, OnDestroy {
-  private showAdminsOnly = false;
-  private users: User[] = [];
+  showAdminsOnly = false;
+  users: User[] = [];
   private usersSubs: Subscription;
   private addUsersSubs: Subscription[] = [];
   private settingsSubs: Subscription;
@@ -31,7 +31,7 @@ export class UserListComponent implements OnInit, OnDestroy {
   getUsers(): void {
     this.usersSubs = this.userService.getUsers().subscribe(users => {
       if (this.showAdminsOnly) {
-        this.users = users.filter((user: User) => user.role === 'Admin')
+        this.users = users.filter((user: User) => user.role === 'Admin');
       } else {
         this.users = users;
       }
@@ -50,8 +50,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.settingsSubs.unsubscribe();
-    this.usersSubs.unsubscribe();
-    this.addUsersSubs.map((sub: Subscription) => sub.unsubscribe);
+    if (!!this.settingsSubs) {
+      this.settingsSubs.unsubscribe();
+    }
+    if (!!this.usersSubs) {
+      this.usersSubs.unsubscribe();
+    }
+    this.addUsersSubs.map((sub: Subscription) => sub.unsubscribe());
   }
 }

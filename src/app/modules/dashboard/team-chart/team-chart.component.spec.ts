@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TeamChartComponent } from './team-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TeamChartComponent', () => {
   let component: TeamChartComponent;
@@ -8,7 +10,8 @@ describe('TeamChartComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TeamChartComponent ]
+      declarations: [ TeamChartComponent ],
+      imports: [NgxChartsModule, BrowserAnimationsModule]
     })
     .compileComponents();
   }));
